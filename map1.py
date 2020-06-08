@@ -22,7 +22,8 @@ fg = folium.FeatureGroup(name="My Map")
 
 # Para iterar en dos listas se utiliza la función ZIP
 for lt, ln, nm, el in zip(lat, lon, nam, elev):
-    fg.add_child(folium.Marker(location=[lt,ln], popup=nm + " altitude is " + str(el) + "m", icon=folium.Icon(color=color_produce(el))))
+    fg.add_child(folium.CircleMarker(location=[lt,ln], radius=6, popup=nm + " altitude is " + str(el) + "m", fill_color=color_produce(el), 
+    color='grey', fill = True, fill_opacity=0.7))
 
 map.add_child(fg)
 
