@@ -5,14 +5,24 @@ data = pd.read_csv('Volcanoes.txt')
 lat = list(data['LAT'])
 lon = list(data['LON'])
 nam = list(data['NAME'])
+elev = list(data['ELEV'])
+
+def color_produce(elevation):
+    if elevation < 1000:
+        return 'green'
+    elif 1000<= elevation < 3000:
+        return 'orange'
+    else:
+        return 'red'
+    
 
 map = folium.Map(location=[38.58, -99.09], zoom_start=6, tiles="Stamen Terrain")
 
 fg = folium.FeatureGroup(name="My Map")
 
 # Para iterar en dos listas se utiliza la función ZIP
-for lt, ln, nm in zip(lat, lon, nam):
-    fg.add_child(folium.Marker(location=[lt,ln], popup=nm, icon=folium.Icon(color='green')))
+for lt, ln, nm, el in zip(lat, lon, nam, elev):
+    fg.add_child(folium.Marker(location=[lt,ln], popup=nm + " altitude is " + str(el) + "m", icon=folium.Icon(color=color_produce(el))))
 
 map.add_child(fg)
 
